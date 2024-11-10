@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Lights</title>
+  <style>
+    /* Dark Mode Styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #1c1c1e; /* Dark background */
+      color: #d1d1d6; /* Light text colour */
+    }
+    
+    .accordion {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto;
+      border: 1px solid #444;
+      border-radius: 5px;
+      overflow: hidden;
+      background-color: #2c2c2e; /* Slightly lighter dark for contrast */
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #444; /* Divider colour */
+    }
+
+    /* Updated accordion header styling */
+    .accordion-header {
+      background-color: #000; /* Black background */
+      color: #ffffff; /* White text */
+      padding: 15px;
+      cursor: pointer;
+      font-size: 1.2em;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .accordion-header:hover {
+      background-color: #222; /* Slightly lighter black on hover */
+    }
+
+    .accordion-header::after {
+      content: "+";
+      font-size: 1.5em;
+      color: #ffffff;
+    }
+
+    .accordion-header.active::after {
+      content: "-";
+    }
+
+    .accordion-content {
+      display: none;
+      padding: 15px;
+      background-color: #3a3a3c; /* Dark grey for content */
+      color: #f1f1f2; /* Lighter text for readability */
+      font-size: 1em;
+      line-height: 1.5;
+    }
+
+    .accordion-content.show {
+      display: block;
+    }
+
+    /* Circle styling */
+    .circle {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Flashing animations for each light */
+    @keyframes flash1on4off {
+        0% { opacity: 0; }         /* Start with off */
+        5% { opacity: 1; }         /* 0.2-second transition to on */
+        20% { opacity: 1; }        /* Continue on for 1 second */
+        25% { opacity: 0; }        /* 0.2-second transition to off */
+        100% { opacity: 0; }       /* Stay off for 4 seconds */
+    }
+
+
+    @keyframes flashLong {
+        0% { opacity: 0; }         /* Start with off */
+        25% { opacity: 1; }         /* 0.2-second transition to on */
+        50% { opacity: 1; }        /* Continue on for 1 second */
+        75% { opacity: 0; }        /* 0.2-second transition to off */
+        100% { opacity: 0; }       /* Stay off for 4 seconds */
+    }
+
+    @keyframes flashBlue {
+      0%, 80% { opacity: 0; } /* 4 seconds off */
+      80%, 100% { opacity: 1; } /* 1 second on */
+    }
+
+    /* Apply unique animation to each circle */
+    .RFl5s {
+      animation: flash1on4off 5s infinite; /* Cycle every 5 seconds */
+    }
+
+    .GFl5s {
+      animation: flash1on4off 5s infinite; /* Cycle every 5 seconds */
+    }
+
+    .RLFl7s {
+      animation: flashLong 7s infinite; /* Cycle every 7 seconds */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Navigation Lights</h1>
+
+  <div class="accordion">
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <svg class="circle" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="#ff4d4d" /> <!-- Red circle -->
+        </svg>
+        R.F
+      </div>
+      <div class="accordion-content">
+        <p>Constant red light</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <svg class="circle" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="#4dff4d" /> <!-- Green circle -->
+        </svg>
+        G.F
+      </div>
+      <div class="accordion-content">
+        <p>Constant Green Light</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <svg class="circle RFl5s" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="#ff4d4d" /> <!-- Red circle -->
+        </svg>
+        R.Fl.5s
+      </div>
+      <div class="accordion-content">
+        <p>One flash of red in every 5 second cycle (length of light flash less than 2 seconds)</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <svg class="circle GFl5s" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="#4dff4d" /> <!-- Green circle -->
+        </svg>
+        G.Fl.5s
+      </div>
+      <div class="accordion-content">
+        <p>One flash of green in every 5 second cycle (length of light flash less than 2 seconds)</p>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <svg class="circle RLFl7s" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10" fill="#ff4d4d" /> <!-- Blue circle -->
+        </svg>
+        R.L.Fl.7s
+      </div>
+      <div class="accordion-content">
+        <p>One long flash of red in every 7 second cycle (length of light flash longer than 2 seconds)</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.accordion-header').forEach(header => {
+      header.addEventListener('click', () => {
+        header.classList.toggle('active');
+        const content = header.nextElementSibling;
+        content.classList.toggle('show');
+      });
+    });
+  </script>
+
+</body>
+</html>
