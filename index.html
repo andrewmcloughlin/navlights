@@ -5,183 +5,310 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Navigation Lights</title>
   <style>
-    /* Dark Mode Styling */
+    ::selection{
+        background-color: #119111;
+        color: white;
+    }
     body {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 20px;
-      background-color: #1c1c1e; /* Dark background */
-      color: #d1d1d6; /* Light text colour */
+      background-color: #1c1c1e;
+      color: #d1d1d6;
     }
-    
-    .accordion {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      border: 1px solid #444;
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .card {
+      width: 300px;
+      background-color: #2c2c2e; 
       border-radius: 5px;
-      overflow: hidden;
-      background-color: #2c2c2e; /* Slightly lighter dark for contrast */
-    }
-
-    .accordion-item {
-      border-bottom: 1px solid #444; /* Divider colour */
-    }
-
-    /* Updated accordion header styling */
-    .accordion-header {
-      background-color: #000; /* Black background */
-      color: #ffffff; /* White text */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       padding: 15px;
-      cursor: pointer;
-      font-size: 1.2em;
+      color: #f1f1f2; 
+    }
+
+    .card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 15px;
+      margin-bottom: 10px;
     }
 
-    .accordion-header:hover {
-      background-color: #222; /* Slightly lighter black on hover */
+    .card-title {
+      font-size: 1.2em;
     }
 
-    .accordion-header::after {
-      content: "+";
-      font-size: 1.5em;
-      color: #ffffff;
-    }
-
-    .accordion-header.active::after {
-      content: "-";
-    }
-
-    .accordion-content {
-      display: none;
-      padding: 15px;
-      background-color: #3a3a3c; /* Dark grey for content */
-      color: #f1f1f2; /* Lighter text for readability */
-      font-size: 1em;
-      line-height: 1.5;
-    }
-
-    .accordion-content.show {
-      display: block;
-    }
-
-    /* Circle styling */
     .circle {
       width: 20px;
       height: 20px;
     }
 
     /* Flashing animations for each light */
-    @keyframes flash1on4off {
-        0% { opacity: 0; }         /* Start with off */
-        5% { opacity: 1; }         /* 0.2-second transition to on */
-        20% { opacity: 1; }        /* Continue on for 1 second */
-        25% { opacity: 0; }        /* 0.2-second transition to off */
-        100% { opacity: 0; }       /* Stay off for 4 seconds */
+    @keyframes Fl {
+        0% { opacity: 0; }  
+        5% { opacity: 1; }  
+        20% { opacity: 1; } 
+        25% { opacity: 0; } 
+        100% { opacity: 0; }
     }
 
 
-    @keyframes flashLong {
-        0% { opacity: 0; }         /* Start with off */
-        25% { opacity: 1; }         /* 0.2-second transition to on */
-        50% { opacity: 1; }        /* Continue on for 1 second */
-        75% { opacity: 0; }        /* 0.2-second transition to off */
-        100% { opacity: 0; }       /* Stay off for 4 seconds */
+    @keyframes LFl {
+        0% { opacity: 0; }  
+        25% { opacity: 1; } 
+        50% { opacity: 1; } 
+        75% { opacity: 0; } 
+        100% { opacity: 0; }
     }
 
-    @keyframes flashBlue {
-      0%, 80% { opacity: 0; } /* 4 seconds off */
-      80%, 100% { opacity: 1; } /* 1 second on */
+    @keyframes Fl2 {
+        0% { opacity: 0; }
+        5% { opacity: 1; }
+        10% { opacity: 0; }
+        15% { opacity: 1; }
+        20% { opacity: 0; }
+        100% { opacity: 0; }
+    }
+
+    @keyframes Fl21 {
+        0% { opacity: 0; }
+        5% { opacity: 1; }
+        10% { opacity: 0; }
+        15% { opacity: 1; }
+        20% { opacity: 0; }
+        45% { opacity: 0; }
+        50% { opacity: 1; }
+        55% { opacity: 0; }
+        100% { opacity: 0; }
+    }
+
+    @keyframes Q {
+        0% { opacity: 0; }  
+        45% { opacity: 1; } 
+        65% { opacity: 1; } 
+        100% { opacity: 0; }
+    }
+
+    @keyframes UQ {
+        19% { opacity: 0; }  
+        23% { opacity: 0; }  
+        33% { opacity: 1; } 
+        43% { opacity: 0; } 
+        56% { opacity: 0; } 
+        66% { opacity: 1; } 
+        76% { opacity: 0; } 
+        89% { opacity: 0; } 
+        99% { opacity: 1; }
+    }
+
+    @keyframes Occ {
+        0% { opacity: 1; }  
+        90% { opacity: 1; }  
+        95% { opacity: 0; }  
+        100% { opacity: 1; } 
     }
 
     /* Apply unique animation to each circle */
-    .RFl5s {
-      animation: flash1on4off 5s infinite; /* Cycle every 5 seconds */
-    }
 
-    .GFl5s {
-      animation: flash1on4off 5s infinite; /* Cycle every 5 seconds */
+    .Fl5s {
+      animation: Fl 5s infinite;
     }
 
     .RLFl7s {
-      animation: flashLong 7s infinite; /* Cycle every 7 seconds */
+      animation: LFl 7s infinite;
+    }
+
+    .Fl26s {
+      animation: Fl2 6s infinite;
+    }
+
+    .Fl21 {
+      animation: Fl21 6s infinite;
+    }
+
+    .Q {
+      animation: Q 3s infinite;
+    }
+
+    .VQ {
+      animation: Q 1s infinite;
+    }
+
+    .UQ {
+      animation: UQ 1s infinite;
+    }
+
+    .Iso {
+      animation: Iso 2s infinite;
+    }
+
+    .Occ {
+      animation: Occ 2s infinite;
     }
   </style>
 </head>
 <body>
 
-  <h1>Navigation Lights</h1>
+  <h1>Navigation Lights <small>🔴⚪🟢🟡</small></h1>
 
-  <div class="accordion">
-    <div class="accordion-item">
-      <div class="accordion-header">
-        <svg class="circle" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" fill="#ff4d4d" /> <!-- Red circle -->
-        </svg>
-        R.F
+  <div class="card-container">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle" >🔴</div>
+        <span class="card-title">R.F</span>
       </div>
-      <div class="accordion-content">
-        <p>Constant red light</p>
-      </div>
+      <p>Constant red light</p>
     </div>
-    <div class="accordion-item">
-      <div class="accordion-header">
-        <svg class="circle" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" fill="#4dff4d" /> <!-- Green circle -->
-        </svg>
-        G.F
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle">🟢</div>
+        <span class="card-title">G.F</span>
       </div>
-      <div class="accordion-content">
-        <p>Constant Green Light</p>
-      </div>
+      <p>Constant green light</p>
     </div>
-    <div class="accordion-item">
-      <div class="accordion-header">
-        <svg class="circle RFl5s" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" fill="#ff4d4d" /> <!-- Red circle -->
-        </svg>
-        R.Fl.5s
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle Fl5s">🔴</div>
+        <span class="card-title">R.Fl.5s</span>
       </div>
-      <div class="accordion-content">
-        <p>One flash of red in every 5 second cycle (length of light flash less than 2 seconds)</p>
-      </div>
+      <p>One flash of red in every 5 second cycle (length of light flash less than 2 seconds)</p>
     </div>
-    <div class="accordion-item">
-      <div class="accordion-header">
-        <svg class="circle GFl5s" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" fill="#4dff4d" /> <!-- Green circle -->
-        </svg>
-        G.Fl.5s
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle Fl5s" >🟢</div>
+        <span class="card-title">G.Fl.5s</span>
       </div>
-      <div class="accordion-content">
-        <p>One flash of green in every 5 second cycle (length of light flash less than 2 seconds)</p>
-      </div>
+      <p>One flash of green in every 5 second cycle (length of light flash less than 2 seconds)</p>
     </div>
-    <div class="accordion-item">
-      <div class="accordion-header">
-        <svg class="circle RLFl7s" viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10" fill="#ff4d4d" /> <!-- Blue circle -->
-        </svg>
-        R.L.Fl.7s
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle RLFl7s">🔴</div>
+        <span class="card-title">R.L.Fl.7s</span>
       </div>
-      <div class="accordion-content">
-        <p>One long flash of red in every 7 second cycle (length of light flash longer than 2 seconds)</p>
-      </div>
+      <p>One long flash of red in every 7 second cycle (length of light flash longer than 2 seconds)</p>
     </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle RLFl7s">🟢</div>
+        <span class="card-title">G.L.Fl.7s</span>
+      </div>
+      <p>One long flash of green in every 7 second cycle (length of light flash longer than 2 seconds)</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle Fl26s">🔴</div>
+        <span class="card-title">R.Fl(2).6s</span>
+      </div>
+      <p>Group flashing 2 Red in every 6 second cycle (length of light flash less than 2 seconds) i.e. the 2 flashes happen in relatively close succession and there is a longer gap between the grouping and it's repetition.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle Fl26s">🟢</div>
+        <span class="card-title">G.Fl(2).6s</span>
+      </div>
+      <p>Group flashing 2 Green in every 6 second cycle (length of light flash less than 2 seconds) i.e. the 2 flashes happen in relatively close succession and there is a longer gap between the grouping and it's repetition.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle Fl21">🔴</div>
+        <span class="card-title">R.Fl(2+1)</span>
+      </div>
+      <p>Group flashing 2 with slight pause then another flash then a much longer pause before the sequence repeats itself.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle Fl21">🟢</div>
+        <span class="card-title">G.Fl(2+1)</span>
+      </div>
+      <p>Group flashing 2 with slight pause then another flash then a much longer pause before the sequence repeats itself.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle Q">🔴</div>
+        <div class="circle Q">⚪</div>
+        <div class="circle Q">🟢</div>
+        <div class="circle Q">🟡</div>
+        <span class="card-title">Q</span>
+      </div>
+      <p>Quick flashing, more than 30 but fewer than 50 times per minute. (With choice of colours: white, red, green, or yellow).</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle VQ">🔴</div>
+        <div class="circle VQ">⚪</div>
+        <div class="circle VQ">🟢</div>
+        <div class="circle VQ">🟡</div>
+        <span class="card-title">V.Q.</span>
+      </div>
+      <p>Very quick flashing, more than 50 but fewer than 80 times per minute. (With choice of colours: white, red, green, or yellow).</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle UQ">🔴</div>
+        <div class="circle UQ">⚪</div>
+        <div class="circle UQ">🟢</div>
+        <div class="circle UQ">🟡</div>
+        <span class="card-title">U.Q.</span>
+      </div>
+      <p>Ulta quick flashing, over 160 times per minute. (With choice of colours: white, red, green, or yellow).</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle Iso">🔴</div>
+        <div class="circle Iso">⚪</div>
+        <div class="circle Iso">🟢</div>
+        <div class="circle Iso">🟡</div>
+        <span class="card-title">Iso</span>
+      </div>
+      <p>Iso - Isophase, equal periods of light in and off (in W,Y,G,R)</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle Occ">🔴</div>
+        <div class="circle Occ">⚪</div>
+        <div class="circle Occ">🟢</div>
+        <div class="circle Occ">🟡</div>
+        <span class="card-title">Occ</span>
+      </div>
+      <p>Occ - Occulting, where the light is on more on than off, the inverse of the flashing above.</p>
+    </div>
+
   </div>
 
-  <script>
-    document.querySelectorAll('.accordion-header').forEach(header => {
-      header.addEventListener('click', () => {
-        header.classList.toggle('active');
-        const content = header.nextElementSibling;
-        content.classList.toggle('show');
-      });
-    });
-  </script>
+  <br><br>
+  <br><br>
+  <h2>To do</h2>
+<br>
+[Q, VQ, UQ could also have a group notation in parentheses (6) denoting that it glasses 6 times in succession followed but a pause]
+<br><br>
+I - Interrupted, used with the Q, VQ, and UQ but where there is a regular pause in the sequence.
+<br><br>
+Mo(A) - Morse Code letter sequence in this example A, short flash followed by long flash, need one for every letter. (Only in white)
+<br><br>
+Al.B.Y., Alternating blue and yellow (could also be alternating between white and green, white and red)
+<br><br>
+Occ.Al.B.Y - Occulting, alternating Blue & Yellow.
 
 </body>
 </html>
