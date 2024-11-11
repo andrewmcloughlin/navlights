@@ -16,7 +16,12 @@
       background-color: #1c1c1e;
       color: #d1d1d6;
     }
-
+    .emoji-filter, .remove-all-filter {
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+    }
     .card-container {
       display: flex;
       flex-wrap: wrap;
@@ -25,7 +30,7 @@
     }
 
     .card {
-      width: 300px;
+      width: 40%;
       background-color: #2c2c2e; 
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -107,11 +112,32 @@
         99% { opacity: 1; }
     }
 
+    @keyframes Iso {
+        0% { opacity: 0; }  
+        45% { opacity: 0; }  
+        50% { opacity: 1; }  
+        99% { opacity: 1; }  
+        100% { opacity: 0; } 
+    }
+
     @keyframes Occ {
         0% { opacity: 1; }  
         90% { opacity: 1; }  
         95% { opacity: 0; }  
         100% { opacity: 1; } 
+    }
+
+    @keyframes MoA {
+        0% { opacity: 0; }
+        9% { opacity: 0; }
+        10% { opacity: 1; } 
+        20% { opacity: 1; } 
+        21% { opacity: 0; } 
+        29% { opacity: 0; } 
+        30% { opacity: 1; } 
+        60% { opacity: 1; }
+        61% { opacity: 0; }
+        100% { opacity: 0; }
     }
 
     /* Apply unique animation to each circle */
@@ -151,11 +177,22 @@
     .Occ {
       animation: Occ 2s infinite;
     }
+
+    .MoA {
+      animation: MoA 3s infinite;
+    }
   </style>
 </head>
 <body>
 
-  <h1>Navigation Lights <small>🔴⚪🟢🟡</small></h1>
+  <h1>Navigation Lights</h1>
+  <div class="emoji-filters">Filter by colour:
+    <button class="emoji-filter" data-emoji="🔴">🔴</button>
+    <button class="emoji-filter" data-emoji="⚪">⚪</button>
+    <button class="emoji-filter" data-emoji="🟢">🟢</button>
+    <button class="emoji-filter" data-emoji="🟡">🟡</button>
+    <button class="remove-all-filter">🔄</button>
+</div><br><br>
 
   <div class="card-container">
 
@@ -280,7 +317,7 @@
         <div class="circle Iso">🟡</div>
         <span class="card-title">Iso</span>
       </div>
-      <p>Iso - Isophase, equal periods of light in and off (in W,Y,G,R)</p>
+      <p>Isophase, equal periods of light in and off (in W,Y,G,R)</p>
     </div>
 
     <div class="card">
@@ -291,7 +328,15 @@
         <div class="circle Occ">🟡</div>
         <span class="card-title">Occ</span>
       </div>
-      <p>Occ - Occulting, where the light is on more on than off, the inverse of the flashing above.</p>
+      <p>Occulting, where the light is on more on than off, the inverse of the flashing above.</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="circle MoA">⚪</div>
+        <span class="card-title">Mo(A)</span>
+      </div>
+      <p>Morse Code letter sequence in this example A, short flash followed by long flash, need one for every letter. (Only in white)</p>
     </div>
 
   </div>
@@ -311,4 +356,34 @@ Al.B.Y., Alternating blue and yellow (could also be alternating between white an
 Occ.Al.B.Y - Occulting, alternating Blue & Yellow.
 
 </body>
+
+<script>
+        const emojiFilters = document.querySelectorAll('.emoji-filter');
+        const removeAllFilter = document.querySelector('.remove-all-filter');
+        const cards = document.querySelectorAll('.card');
+
+        emojiFilters.forEach(filter => {
+            filter.addEventListener('click', () => {
+                const emoji = filter.dataset.emoji;
+                cards.forEach(card => {
+                    const cardEmojis = card.querySelectorAll('.circle');
+                    let isMatch = false;
+
+                    cardEmojis.forEach(emojiElement => {
+                        if (emojiElement.innerHTML === emoji) {
+                            isMatch = true;
+                        }
+                    });
+
+                    card.style.display = isMatch ? 'block' : 'none';
+                });
+            });
+        });
+
+        removeAllFilter.addEventListener('click', () => {
+            cards.forEach(card => {
+                card.style.display = 'block';
+            });
+        });
+</script>
 </html>
